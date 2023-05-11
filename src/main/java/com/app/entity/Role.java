@@ -1,7 +1,8 @@
 package com.app.entity;
 
+
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 public class Role {
@@ -10,14 +11,6 @@ public class Role {
     private long id;
 
     private String name;
-    @ManyToMany
-    @JoinTable(
-            name = "role_permission",
-            joinColumns = {@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "permission_id")}
-    )
-    private List<Permission> permissionList;
-
 
     public long getId() {
         return id;
@@ -35,13 +28,6 @@ public class Role {
         this.name = name;
     }
 
-    public List<Permission> getPermissionList() {
-        return permissionList;
-    }
-
-    public void setPermissionList(List<Permission> permissionList) {
-        this.permissionList = permissionList;
-    }
 
     public Role withName(String name) {
         this.name = name;
@@ -53,7 +39,6 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", permissonList=" + permissionList +
                 '}';
     }
 }

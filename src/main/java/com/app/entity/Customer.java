@@ -51,6 +51,7 @@ public class Customer {
         return age;
     }
 
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -117,6 +118,8 @@ public class Customer {
         this.isAdmin = isAdmin;
         return this;
     }
+
+
     @Override
     public String toString() {
         return "Customer{" +

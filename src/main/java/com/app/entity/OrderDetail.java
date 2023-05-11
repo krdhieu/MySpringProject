@@ -7,8 +7,11 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
+    @ManyToOne
     private CustomerOrder order;
+
+    @ManyToOne
+    private Product product;
 
     private int quantity;
 
@@ -44,6 +47,14 @@ public class OrderDetail {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override

@@ -16,14 +16,6 @@ public class Account {
     @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @ManyToMany
-    @JoinTable(
-            name = "account_role",
-            joinColumns = {@JoinColumn(name = "account_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private List<Role> roles;
-
     private Date createAt;
 
     public long getId() {
@@ -50,14 +42,6 @@ public class Account {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
     public Date getCreateAt() {
         return createAt;
     }
@@ -72,7 +56,6 @@ public class Account {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
                 ", createAt=" + createAt +
                 '}';
     }

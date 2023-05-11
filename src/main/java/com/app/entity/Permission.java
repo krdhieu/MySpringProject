@@ -1,6 +1,7 @@
 package com.app.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Permission {
@@ -9,6 +10,7 @@ public class Permission {
     private long id;
 
     private String name;
+
 
     public long getId() {
         return id;
