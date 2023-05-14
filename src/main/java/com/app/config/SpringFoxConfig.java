@@ -1,8 +1,8 @@
 package com.app.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 //import springfox.documentation.builders.ApiInfoBuilder;
 //import springfox.documentation.builders.RequestHandlerSelectors;
 //import springfox.documentation.service.ApiInfo;
@@ -12,8 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 
 //@EnableSwagger2
-@Configuration
-public class SpringFoxConfig  extends WebMvcConfigurationSupport {
+//@Configuration
+//public class SpringFoxConfig  extends WebMvcConfigurationSupport {
 //    @Bean
 //    public Docket api() {
 //        return new Docket(DocumentationType.SWAGGER_2)
@@ -30,4 +30,4 @@ public class SpringFoxConfig  extends WebMvcConfigurationSupport {
 //                .version("1.0.0")
 //                .build();
 //    }
-}
+//}

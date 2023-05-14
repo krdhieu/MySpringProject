@@ -1,5 +1,7 @@
 package com.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,7 +11,8 @@ public class ProductType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnore
+    @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Product> products;
 
     public long getId() {
@@ -34,6 +37,11 @@ public class ProductType {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public ProductType withName(String name) {
+        this.name = name;
+        return this;
     }
 
     @Override

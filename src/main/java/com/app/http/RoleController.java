@@ -24,9 +24,12 @@ public class RoleController {
 
     @PostMapping("/find-by-name/{name}")
     public @ResponseBody ResponseEntity<List<Role>> findRolesByName(@PathVariable("name") String name) {
-        if(roleService.findRoleByName(name) != null)
-            return new ResponseEntity<>(roleService.findRoleByName(name), HttpStatus.OK);
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(roleService.findRoleByName(name), HttpStatus.OK);
+    }
+
+    @PostMapping("/find-by-id/{id}")
+    public @ResponseBody ResponseEntity<Role> findRoleById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(roleService.findRoleById(id), HttpStatus.OK);
     }
 
 }

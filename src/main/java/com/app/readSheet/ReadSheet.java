@@ -6,20 +6,19 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import com.app.entity.Customer;
-import com.app.entity.Role;
-import com.app.logic.CustomerLogic;
 import com.app.logic.EntityLogic;
-import com.app.logic.RoleLogic;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+
 @Component
-public class ReadSheet<T> {
+public class ReadSheet<T, I> {
+    @Autowired
+    ApplicationContext context;
     static XSSFRow row;
     EntityLogic entityLogic;
 
@@ -41,13 +40,17 @@ public class ReadSheet<T> {
                         String key = entry.getKey();
                         if (key.equals(f.getName())) {
                             Method withMethod = this.getWithMethod(clazz, f);
-                            System.out.println();
-                            withMethod.invoke(obj, this.getCellValue(row.getCell(entry.getValue()), f));
+                            if (f.getType().isPrimitive() || f.getType() == String.class) {
+                                System.out.println("field: " + f.getType() + " is " + f.getType());
+                                withMethod.invoke(obj, this.getCellValue(row.getCell(entry.getValue()), f));
+                            } else {
+                                Object refInstance = this.getRefInstance(f, entry);
+                                withMethod.invoke(obj, refInstance);
+                            }
                         }
                     }
                 }
                 entityLogic.saveEntity((T) obj);
-                System.out.println(obj);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -64,24 +67,35 @@ public class ReadSheet<T> {
             case BOOLEAN:
                 return cell.getBooleanCellValue();
             case NUMERIC:
-                if(field.getType() == int.class || field.getType() == Integer.class) {
+                if (field.getType() == int.class || field.getType() == Integer.class) {
                     return (int) cell.getNumericCellValue();
                 } else if (field.getType() == double.class || field.getType() == Double.class) {
                     return cell.getNumericCellValue();
                 } else if (field.getType() == long.class || field.getType() == Long.class) {
                     return (long) cell.getNumericCellValue();
-            }
+                } else if (field.getType() == float.class || field.getType() == Float.class) {
+                    return (float) cell.getNumericCellValue();
+                } else return (long) cell.getNumericCellValue(); // if field is entity type return id type - long type
             case STRING:
-                return cell.getStringCellValue();
+                return cell.getRichStringCellValue().getString();
             default:
                 return null;
         }
     }
 
-    public ReadSheet<T> withEntity(EntityLogic<T> entityLogic) {
+    // get reference instance by id mapping from excel of entity to set to field of entity
+    public Object getRefInstance(Field f, Map.Entry<String, Integer> entry) throws Exception {
+        Class<?> clz = f.getType(); // get type of reference field
+        String clzLogicName = "com.app.logic." + clz.getSimpleName() + "Logic";
+        Class<?> clzLogic = Class.forName(clzLogicName); // get logic class of reference field
+        Method findById = clzLogic.getDeclaredMethod("findById", Long.class); // get findById method from logic class of reference field
+        Object clzLogicInstance = context.getBean(clzLogic); // create logic class's bean of reference field to invoke findByIdMethod
+        Object refInstance = findById.invoke(clzLogicInstance, this.getCellValue(row.getCell(entry.getValue()), f));
+        return refInstance;
+    }
+
+    public ReadSheet<T, I> withEntity(EntityLogic<T, I> entityLogic) {
         this.entityLogic = entityLogic;
         return this;
     }
-
-
 }

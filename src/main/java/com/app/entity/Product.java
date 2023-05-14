@@ -92,6 +92,31 @@ public class Product {
         this.updateAt = updateAt;
     }
 
+    public Product withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Product withProductType(ProductType productType) {
+        this.productType = productType;
+        return this;
+    }
+
+    public Product withPrice(float price) {
+        this.price = price;
+        return this;
+    }
+
+    public Product withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Product withUpdateAt(Date date) {
+        this.updateAt = date;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

@@ -35,30 +35,26 @@ public class CustomerController {
 
     @ApiOperation(value = "delete customer by customer's id", response = Customer.class)
     @DeleteMapping("/delete-customer/{id}")
-    public void deleteCustomer(@PathVariable("id") Long customerId) {
-        customerService.deleteCustomer(customerId);
+    public @ResponseBody ResponseEntity<Integer> deleteCustomer(@PathVariable("id") Long customerId) {
+        return new ResponseEntity<>(customerService.deleteCustomer(customerId), HttpStatus.ACCEPTED);
     }
 
-    @ApiOperation(value = "find customer by customer's id return customer info", response = Customer.class)
+    @ApiOperation(value = "find customer by customer's id, return customer info", response = Customer.class)
     @GetMapping("/find-by-id/{id}")
     public ResponseEntity<Customer> findCustomerById(@PathVariable("id") Long customerId) {
-        Customer customer = customerService.findById(customerId);
-        return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+        return new ResponseEntity<Customer>(customerService.findCustomerById(customerId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "update customer is existed in db", response = Customer.class)
     @PutMapping("/update-customer")
     public @ResponseBody ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) throws IOException {
-        if (customerService.saveCustomer(customer) == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "find customer by name, return a list of customer match with name at path variable", response = Customer.class)
     @PostMapping("/find-by-name/{name}")
     public @ResponseBody ResponseEntity<List<Customer>> findCustomerByName(@PathVariable("name") String customerName) {
-        return new ResponseEntity<>(customerService.findByName(customerName), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.findCustomerByName(customerName), HttpStatus.OK);
     }
 
 

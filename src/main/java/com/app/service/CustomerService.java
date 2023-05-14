@@ -5,6 +5,7 @@ import com.app.logic.CustomerLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -16,20 +17,21 @@ public class CustomerService {
         return customerLogic.getAllCustomer();
     }
 
-    public List<Customer> findByName(String name) {
-        return customerLogic.findByName(name);
+    public List<Customer> findCustomerByName(String name) {
+        return customerLogic.findCustomerByName(name);
     }
 
     public Customer createCustomer(Customer customer) {
         return customerLogic.createCustomer(customer);
     }
 
-    public void deleteCustomer(Long id) {
-         customerLogic.deleteCustomer(id);
+    @Transactional
+    public int deleteCustomer(Long id) {
+         return customerLogic.deleteCustomer(id);
     }
 
-    public Customer findById(Long id) {
-        return customerLogic.findById(id);
+    public Customer findCustomerById(Long id) {
+        return customerLogic.findCustomerById(id);
     }
 
     public Customer saveCustomer(Customer customer) {

@@ -9,6 +9,12 @@ import java.util.Map;
 public class HeaderMapping {
     private Map<String, Integer> headerMap = new LinkedHashMap<>();
 
+    /* store the index of the column corresponding to the field name of the entity.
+    eg:  key: "name" value: 1
+         key: "age" value: 2
+         name, age are field's names - headers
+         1,2 are index of colum
+     */
     public void addHeader(Row row) {
         String header = "";
         for (int i = 0; i < row.getLastCellNum(); i++) {

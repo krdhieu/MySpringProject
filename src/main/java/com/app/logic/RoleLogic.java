@@ -9,14 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class RoleLogic implements EntityLogic<Role> {
+public class RoleLogic implements EntityLogic<Role, Long> {
     @Autowired
     RoleRepo roleRepo;
-
-    @Override
-    public void saveEntity(Role entity) {
-        roleRepo.save(entity);
-    }
 
     public List<Role> getAllRoles() {
         System.out.println("logic controller get all");
@@ -33,7 +28,7 @@ public class RoleLogic implements EntityLogic<Role> {
 
     public Role findRoleById(Long id) {
         Optional<Role> optionalRole = roleRepo.findById(id);
-        if(optionalRole.isPresent()) {
+        if (optionalRole.isPresent()) {
             return optionalRole.get();
         }
         return null;
@@ -41,7 +36,7 @@ public class RoleLogic implements EntityLogic<Role> {
 
     public List<Role> findRoleByName(String name) {
         List<Role> roles = roleRepo.findByName(name);
-        if(roles.size() != 0) {
+        if (roles.size() != 0) {
             return roles;
         }
         return null;
@@ -49,7 +44,7 @@ public class RoleLogic implements EntityLogic<Role> {
 
     public Role saveRole(Role role) {
         Optional<Role> roleOptional = roleRepo.findById(role.getId());
-        if(roleOptional.isPresent()) {
+        if (roleOptional.isPresent()) {
             Role existedRole = roleOptional.get();
             existedRole.withName(role.getName());
             return existedRole;
@@ -57,5 +52,18 @@ public class RoleLogic implements EntityLogic<Role> {
         return null;
     }
 
+    @Override
+    public void saveEntity(Role entity) {
+        roleRepo.save(entity);
+    }
+
+    @Override
+    public Role findById(Long id) {
+        Optional<Role> optionalRole = roleRepo.findById(id);
+        if (optionalRole.isPresent()) {
+            return optionalRole.get();
+        }
+        return null;
+    }
 
 }

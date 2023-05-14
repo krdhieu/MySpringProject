@@ -3,6 +3,7 @@ package com.app.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
 @Entity
 public class Account {
     @Id
@@ -10,7 +11,6 @@ public class Account {
     private long id;
     @Column(unique = true)
     private String username;
-
     private String password;
 
     @OneToOne
@@ -52,11 +52,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", createAt=" + createAt +
-                '}';
+        return "Account{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", createAt=" + createAt + '}';
     }
 }
