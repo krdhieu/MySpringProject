@@ -11,7 +11,7 @@ public class ProductType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Product> products;
 

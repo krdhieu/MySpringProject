@@ -29,6 +29,11 @@ public class OrderStatus {
         this.name = name;
     }
 
+    public OrderStatus withName(String name) {
+        this.name = name;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "OderStatus{" +

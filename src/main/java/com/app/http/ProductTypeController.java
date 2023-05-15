@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/productType")
+@RequestMapping("/api/v1/product-type")
 public class ProductTypeController {
     @Autowired
     private ProductTypeService productTypeService;
@@ -36,12 +36,12 @@ public class ProductTypeController {
         return new ResponseEntity<>(productTypeService.findProductTypeByName(name), HttpStatus.OK);
     }
 
-    @PutMapping("/update-productType")
+    @PutMapping("/update-product-type")
     public @ResponseBody ResponseEntity<ProductType> updateProductType(@RequestBody ProductType productType) {
         return new ResponseEntity<>(productTypeService.saveProductType(productType), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete-productType/{id}")
+    @DeleteMapping("/delete-product-type/{id}")
     public @ResponseBody ResponseEntity<Integer> deleteProductById(@PathVariable Long id) {
         return new ResponseEntity<>(productTypeService.deleteProductTypeById(id), HttpStatus.ACCEPTED);
     }

@@ -40,6 +40,7 @@ public class ProductLogic implements EntityLogic<Product, Long> {
                     .withPrice(product.getPrice())
                     .withDescription(product.getDescription())
                     .withUpdateAt(new Date());
+            productRepo.save(existedProduct);
             return existedProduct;
         }
         return null;

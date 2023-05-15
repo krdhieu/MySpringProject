@@ -23,11 +23,11 @@ public class AutoLoadData {
 //        RoleLogic roleLogic = context.getBean(RoleLogic.class);
 //        readSheet.withEntity(roleLogic);
 //        readSheet.readRecord("./src/main/resources/roles.xlsx", Role.class, 1);
-
+//
 //        PermissionLogic permissionLogic = context.getBean(PermissionLogic.class);
 //        readSheet.withEntity(permissionLogic);
 //        readSheet.readRecord("./src/main/resources/permissions.xlsx", Permission.class, 1);
-
+//
 //        ProductTypeLogic productTypeLogic = context.getBean(ProductTypeLogic.class);
 //        readSheet.withEntity(productTypeLogic);
 //        readSheet.readRecord("./src/main/resources/producttypes.xlsx", ProductType.class, 1);
