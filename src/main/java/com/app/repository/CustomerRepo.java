@@ -19,4 +19,7 @@ public interface CustomerRepo extends JpaRepository<Customer, Long> {
     @Modifying
     @Query("Delete from Customer c where c.id = :customerId")
     int deleteCustomerById(@Param("customerId") Long id);
+
+//    @Query("Select c from Customer c inner join Account a where c.id = a.")
+//    Customer findCustomerByUsernameNPassword(@Param("username") String username,@Param("password") String password);
 }

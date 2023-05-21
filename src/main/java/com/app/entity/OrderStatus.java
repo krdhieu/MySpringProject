@@ -1,10 +1,12 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class OrderStatus {
+public class OrderStatus extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -36,9 +38,12 @@ public class OrderStatus {
 
     @Override
     public String toString() {
-        return "OderStatus{" +
+        return "OrderStatus{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", orderList=" + orderList +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

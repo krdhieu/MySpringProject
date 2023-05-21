@@ -21,6 +21,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     @Query("Select pd from Product pd where pd.name like %:name%")
     List<Product> findProductByName(@Param("name") String productName);
 
-    @Query("Select pd from Product pd inner join pd.productType pt where pd.productType.id = :productTypeId")
+    @Query("Select pd from Product pd join pd.productType pt where pd.productType.id = :productTypeId")
     List<Product> findProductByProductType(@Param("productTypeId") Long productTypeId);
 }

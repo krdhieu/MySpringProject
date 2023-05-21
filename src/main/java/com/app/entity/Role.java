@@ -1,11 +1,13 @@
 package com.app.entity;
 
 
+import com.app.entity.generics.BaseEntity;
+
 import javax.persistence.*;
 
 
 @Entity
-public class Role {
+public class Role extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -37,6 +39,8 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

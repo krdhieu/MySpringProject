@@ -1,11 +1,14 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class CustomerOrder {
+public class CustomerOrder extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -13,16 +16,19 @@ public class CustomerOrder {
     @JoinColumn(name = "status_id")
     private OrderStatus status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetailList;
 
     private float totalPrice;
-
-    private Date createAt;
+    private LocalDateTime orderAt;
+    private LocalDateTime shippedAt;
+    private LocalDateTime completeAt;
+    private LocalDateTime cancelledAt;
 
     public long getId() {
         return id;
@@ -64,28 +70,88 @@ public class CustomerOrder {
         this.totalPrice = totalPrice;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public LocalDateTime getOrderAt() {
+        return orderAt;
     }
 
-    public void setCreateAt(Date orderDate) {
-        this.createAt = orderDate;
+    public void setOrderAt(LocalDateTime orderDate) {
+        this.orderAt = orderDate;
     }
 
-    @PrePersist
-    public void onCreate() {
-        this.createAt = new Date();
+    public LocalDateTime getShippedAt() {
+        return shippedAt;
     }
+
+    public void setShippedAt(LocalDateTime shippedAt) {
+        this.shippedAt = shippedAt;
+    }
+
+    public LocalDateTime getCompleteAt() {
+        return completeAt;
+    }
+
+    public void setCompleteAt(LocalDateTime completeAt) {
+        this.completeAt = completeAt;
+    }
+
+    public LocalDateTime getCancelledAt() {
+        return cancelledAt;
+    }
+
+    public void setCancelledAt(LocalDateTime cancelledAt) {
+        this.cancelledAt = cancelledAt;
+    }
+
+    public CustomerOrder withStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
+        return this;
+    }
+
+    public CustomerOrder withCustomer(Customer customer) {
+        this.customer = customer;
+        return this;
+    }
+
+    public CustomerOrder withTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+        return this;
+    }
+
+    public CustomerOrder withOrderAt(LocalDateTime date) {
+        this.orderAt = date;
+        return this;
+    }
+
+    public CustomerOrder withShippedAt(LocalDateTime date) {
+        this.shippedAt = date;
+        return this;
+    }
+
+    public CustomerOrder withCompletedAt(LocalDateTime date) {
+        this.completeAt = date;
+        return this;
+    }
+
+    public CustomerOrder withCancelledAt(LocalDateTime date) {
+        this.cancelledAt = date;
+        return this;
+    }
+
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "CustomerOrder{" +
                 "id=" + id +
                 ", status=" + status +
                 ", customer=" + customer +
                 ", orderDetailList=" + orderDetailList +
                 ", totalPrice=" + totalPrice +
-                ", orderDate=" + createAt +
+                ", orderAt=" + orderAt +
+                ", shippedAt=" + shippedAt +
+                ", completeAt=" + completeAt +
+                ", cancelledAt=" + cancelledAt +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

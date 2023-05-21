@@ -1,20 +1,19 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
+
 import javax.persistence.*;
+
 @Entity
-public class OrderDetail {
+public class OrderDetail extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @ManyToOne
     private CustomerOrder order;
-
     @ManyToOne
     private Product product;
-
     private int quantity;
-
     private float price;
 
     public long getId() {
@@ -57,13 +56,36 @@ public class OrderDetail {
         this.product = product;
     }
 
+    public OrderDetail withOrder(CustomerOrder order) {
+        this.order = order;
+        return this;
+    }
+
+    public OrderDetail withProduct(Product product) {
+        this.product = product;
+        return this;
+    }
+
+    public OrderDetail withQuantity(int quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    public OrderDetail withPrice(float price) {
+        this.price = price;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
                 ", order=" + order +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", price=" + price +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

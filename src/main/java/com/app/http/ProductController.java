@@ -20,17 +20,17 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAllProduct(), HttpStatus.OK);
     }
 
-    @PostMapping("/find-by-id/{id}")
+    @GetMapping("/find-by-id/{id}")
     public @ResponseBody ResponseEntity<Product> findProductById(@PathVariable("id") Long id) {
         return new ResponseEntity<> (productService.findProductById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/find-by-name/{name}")
+    @GetMapping("/find-by-name/{name}")
     public @ResponseBody ResponseEntity<List<Product>> findProductByName(@PathVariable("name") String name) {
         return new ResponseEntity<>(productService.findProductByName(name), HttpStatus.OK);
     }
 
-    @PostMapping("/find-by-product-type/{typeId}")
+    @GetMapping("/find-by-product-type/{typeId}")
     public @ResponseBody ResponseEntity<List<Product>> findProductByProductType(@PathVariable("typeId") Long typeId) {
         return new ResponseEntity<>(productService.findProductByProductType(typeId), HttpStatus.OK);
     }
@@ -45,7 +45,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.updateProduct(product), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete-product/{id}")
+    @DeleteMapping("/delete-by-id/{id}")
     public @ResponseBody ResponseEntity<Integer> deleteProductById(@PathVariable("productId") Long id) {
         return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.ACCEPTED);
     }

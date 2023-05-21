@@ -1,10 +1,11 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
+
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-public class Permission {
+public class Permission extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -36,6 +37,8 @@ public class Permission {
         return "Permission{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

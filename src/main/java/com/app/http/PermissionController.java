@@ -22,12 +22,12 @@ public class PermissionController {
         return new ResponseEntity<>(permissionService.getAllPermission(), HttpStatus.OK);
     }
 
-    @PostMapping("/find-by-id/{id}")
+    @GetMapping("/find-by-id/{id}")
     public @ResponseBody ResponseEntity<Permission> findPermissionById(@PathVariable("id") Long permissionId) {
         return new ResponseEntity<>(permissionService.findPermissionById(permissionId), HttpStatus.OK);
     }
 
-    @PostMapping("/find-by-name/{name}")
+    @GetMapping("/find-by-name/{name}")
     public @ResponseBody ResponseEntity<List<Permission>> findPermissionByName(@PathVariable("name") String permissionName) {
         return new ResponseEntity<>(permissionService.findPermissionByName(permissionName), HttpStatus.OK);
     }

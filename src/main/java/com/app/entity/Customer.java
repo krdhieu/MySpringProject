@@ -1,13 +1,12 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.NotFound;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 
 @Entity
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,7 +20,7 @@ public class Customer {
     private String address;
 
     @NotNull
-    private String phonenumber;
+    private String phoneNumber;
 
     @NotNull
     @Column(columnDefinition = "boolean default false")
@@ -73,11 +72,11 @@ public class Customer {
     }
 
     public String getPhonenumber() {
-        return phonenumber;
+        return phoneNumber;
     }
 
     public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phonenumber;
     }
 
     public boolean isAdmin() {
@@ -110,7 +109,7 @@ public class Customer {
     }
 
     public Customer withPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phonenumber;
         return this;
     }
 
@@ -126,10 +125,12 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", gender='" + gender + '\'' +
+                ", gender=" + gender +
                 ", address='" + address + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

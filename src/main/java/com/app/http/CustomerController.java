@@ -27,22 +27,22 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getAllCustomer(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "find customer by customer's id, return customer info", response = Customer.class)
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<Customer> findCustomerById(@PathVariable("id") Long customerId) {
+        return new ResponseEntity<>(customerService.findCustomerById(customerId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "find customer by name, return a list of customer match with name at path variable", response = Customer.class)
+    @GetMapping("/find-by-name/{name}")
+    public @ResponseBody ResponseEntity<List<Customer>> findCustomerByName(@PathVariable("name") String customerName) {
+        return new ResponseEntity<>(customerService.findCustomerByName(customerName), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "create customer", response = Customer.class)
     @PostMapping("/create-customer")
     public @ResponseBody ResponseEntity<Customer> createCustomer(@RequestBody Customer newCustomer) {
         return new ResponseEntity<>(customerService.createCustomer(newCustomer), HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "delete customer by customer's id", response = Customer.class)
-    @DeleteMapping("/delete-customer/{id}")
-    public @ResponseBody ResponseEntity<Integer> deleteCustomer(@PathVariable("id") Long customerId) {
-        return new ResponseEntity<>(customerService.deleteCustomer(customerId), HttpStatus.ACCEPTED);
-    }
-
-    @ApiOperation(value = "find customer by customer's id, return customer info", response = Customer.class)
-    @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Customer> findCustomerById(@PathVariable("id") Long customerId) {
-        return new ResponseEntity<Customer>(customerService.findCustomerById(customerId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "update customer is existed in db", response = Customer.class)
@@ -51,10 +51,10 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.ACCEPTED);
     }
 
-    @ApiOperation(value = "find customer by name, return a list of customer match with name at path variable", response = Customer.class)
-    @PostMapping("/find-by-name/{name}")
-    public @ResponseBody ResponseEntity<List<Customer>> findCustomerByName(@PathVariable("name") String customerName) {
-        return new ResponseEntity<>(customerService.findCustomerByName(customerName), HttpStatus.OK);
+    @ApiOperation(value = "delete customer by customer's id", response = Customer.class)
+    @DeleteMapping("/delete-by-id/{id}")
+    public @ResponseBody ResponseEntity<Integer> deleteCustomer(@PathVariable("id") Long customerId) {
+        return new ResponseEntity<>(customerService.deleteCustomer(customerId), HttpStatus.ACCEPTED);
     }
 
 

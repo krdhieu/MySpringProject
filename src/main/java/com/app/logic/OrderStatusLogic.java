@@ -1,12 +1,14 @@
 package com.app.logic;
 
 import com.app.entity.OrderStatus;
+import com.app.logic.generic.EntityLogic;
 import com.app.repository.OrderStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-
+@Component
 public class OrderStatusLogic implements EntityLogic<OrderStatus, Long> {
     @Autowired
     OrderStatusRepo orderStatusRepo;

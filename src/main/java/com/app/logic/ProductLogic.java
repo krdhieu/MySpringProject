@@ -1,13 +1,12 @@
 package com.app.logic;
 
 import com.app.entity.Product;
-import com.app.entity.ProductType;
+import com.app.logic.generic.EntityLogic;
 import com.app.repository.ProductRepo;
-import com.app.repository.ProductTypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +38,7 @@ public class ProductLogic implements EntityLogic<Product, Long> {
                     .withProductType(product.getType())
                     .withPrice(product.getPrice())
                     .withDescription(product.getDescription())
-                    .withUpdateAt(new Date());
+                    .withUpdateAt(LocalDateTime.now());
             productRepo.save(existedProduct);
             return existedProduct;
         }
@@ -54,7 +53,7 @@ public class ProductLogic implements EntityLogic<Product, Long> {
         return productRepo.deleteProductById(id);
     }
 
-    public List<Product> findProductByProductType(Long  productTypeId) {
+    public List<Product> findProductByProductType(Long productTypeId) {
         return productRepo.findProductByProductType(productTypeId);
     }
 

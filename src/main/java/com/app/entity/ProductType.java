@@ -1,12 +1,13 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class ProductType {
+public class ProductType extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -50,6 +51,8 @@ public class ProductType {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", products=" + products +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

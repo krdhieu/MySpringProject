@@ -1,6 +1,7 @@
 package com.app.logic;
 
 import com.app.entity.Permission;
+import com.app.logic.generic.EntityLogic;
 import com.app.repository.PermissionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class PermissionLogic implements EntityLogic<Permission, Long>{
+public class PermissionLogic implements EntityLogic<Permission, Long> {
     @Autowired
     PermissionRepo permissionRepo;
 

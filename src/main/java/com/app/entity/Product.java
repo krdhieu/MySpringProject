@@ -1,12 +1,13 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-public class Product {
+public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -17,24 +18,9 @@ public class Product {
     private String name;
     private float price;
     private String description;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createAt;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createAt = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateAt = new Date();
-    }
 
     public Product() {
     }
-
 
     public long getId() {
         return id;
@@ -76,19 +62,19 @@ public class Product {
         this.description = description;
     }
 
-    public Date getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(Date createAt) {
+    public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
 
-    public Date getUpdateAt() {
+    public LocalDateTime getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
+    public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
     }
 
@@ -112,7 +98,7 @@ public class Product {
         return this;
     }
 
-    public Product withUpdateAt(Date date) {
+    public Product withUpdateAt(LocalDateTime date) {
         this.updateAt = date;
         return this;
     }
@@ -121,7 +107,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", type='" + productType + '\'' +
+                ", productType=" + productType +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +

@@ -31,9 +31,19 @@ public class AutoLoadData {
 //        ProductTypeLogic productTypeLogic = context.getBean(ProductTypeLogic.class);
 //        readSheet.withEntity(productTypeLogic);
 //        readSheet.readRecord("./src/main/resources/producttypes.xlsx", ProductType.class, 1);
-
-        ProductLogic productLogic = context.getBean(ProductLogic.class);
-        readSheet.withEntity(productLogic);
-        readSheet.readRecord("./src/main/resources/products.xlsx", Product.class, 1);
+//
+//        ProductLogic productLogic = context.getBean(ProductLogic.class);
+//        readSheet.withEntity(productLogic);
+//        readSheet.readRecord("./src/main/resources/products.xlsx", Product.class, 1);
+//
+//        OrderStatusLogic orderStatusLogic = context.getBean(OrderStatusLogic.class);
+//        readSheet.withEntity(orderStatusLogic);
+//        readSheet.readRecord("./src/main/resources/order-statuses.xlsx", OrderStatus.class, 1);
+//        AccountLogic accountLogic = context.getBean(AccountLogic.class);
+//        readSheet.withEntity(accountLogic);
+//        readSheet.readRecord("./src/main/resources/accounts.xlsx", Account.class, 1);
+        AccountRolePermissionLogic accountRolePermissionLogic = context.getBean(AccountRolePermissionLogic.class);
+        readSheet.withEntity(accountRolePermissionLogic);
+        readSheet.readRecord("./src/main/resources/account-role-permission.xlsx", AccountRolePermission.class, 1);
     }
 }

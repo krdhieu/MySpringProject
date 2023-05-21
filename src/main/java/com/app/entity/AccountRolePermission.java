@@ -1,9 +1,11 @@
 package com.app.entity;
 
+import com.app.entity.generics.BaseEntity;
+
 import javax.persistence.*;
 
 @Entity
-public class AccountRolePermission {
+public class AccountRolePermission extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -53,6 +55,21 @@ public class AccountRolePermission {
         this.account = account;
     }
 
+    public AccountRolePermission withAccount(Account account) {
+        this.account = account;
+        return this;
+    }
+
+    public AccountRolePermission withRole(Role role) {
+        this.role = role;
+        return this;
+    }
+
+    public AccountRolePermission withPermission(Permission permission) {
+        this.permission = permission;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "AccountRolePermission{" +
@@ -60,6 +77,8 @@ public class AccountRolePermission {
                 ", role=" + role +
                 ", permission=" + permission +
                 ", account=" + account +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
                 '}';
     }
 }

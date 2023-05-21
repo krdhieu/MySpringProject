@@ -20,17 +20,12 @@ public class OrderStatusController {
         return new ResponseEntity<>(orderStatusService.getAllOrderStatus(), HttpStatus.OK);
     }
 
-    @PostMapping("/create-order-status")
-    public @ResponseBody ResponseEntity<OrderStatus> createOrderStatus(@RequestBody OrderStatus orderStatus) {
-        return new ResponseEntity<>(orderStatusService.createOrderStatus(orderStatus), HttpStatus.OK);
-    }
-
-    @PostMapping("/find-by-id/{id}")
+    @GetMapping("/find-by-id/{id}")
     public @ResponseBody ResponseEntity<OrderStatus> findOrderStatusById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(orderStatusService.findOrderStatusById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/find-by-name/{name}")
+    @GetMapping("/find-by-name/{name}")
     public @ResponseBody ResponseEntity<List<OrderStatus>> findOrderStatusByName(@PathVariable("name") String name) {
         return new ResponseEntity<>(orderStatusService.findOrderStatusByName(name), HttpStatus.OK);
     }
@@ -40,7 +35,12 @@ public class OrderStatusController {
         return new ResponseEntity<>(orderStatusService.updateOrderStatus(orderStatus), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete-order-status/{id}")
+    @PostMapping("/create-order-status")
+    public @ResponseBody ResponseEntity<OrderStatus> createOrderStatus(@RequestBody OrderStatus orderStatus) {
+        return new ResponseEntity<>(orderStatusService.createOrderStatus(orderStatus), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-by-id/{id}")
     public @ResponseBody ResponseEntity<Integer> deleteOrderStatus(@PathVariable("id") Long id) {
         return new ResponseEntity<>(orderStatusService.deleteOrderStatusById(id), HttpStatus.ACCEPTED);
     }
