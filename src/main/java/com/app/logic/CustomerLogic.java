@@ -13,6 +13,8 @@ public class CustomerLogic implements EntityLogic<Customer, Long> {
     @Autowired
     CustomerRepo customerRepo;
 
+    @Autowired
+    AccountLogic accountLogic;
     public Customer createCustomer(Customer customer) {
         return customerRepo.save(customer);
     }
@@ -53,9 +55,10 @@ public class CustomerLogic implements EntityLogic<Customer, Long> {
         return null;
     }
 
-//    public Customer findCustomerByUsernameNPassword(String username, String password) {
-//        return customerRepo.findCustomerByUsernameNPassword(username, password);
-//    }
+    public Customer findCustomerByUsernameNPassword(String username, String password) {
+        String encodePassword = accountLogic.encodePassword(password);
+        return customerRepo.findCustomerByUsernameNPassword(username, encodePassword);
+    }
 
     @Override
     public void saveEntity(Customer customer) {
