@@ -21,10 +21,5 @@ jobs:
       with:
         java-version: 15.0.2
         distribution: 'adopt'
-    - name: Set up Gradle
-      uses: gradle/setup-gradle@v2
-      with:
-         gradle-version: 6.8
-
     - name: Build with Gradle
       run: ./gradlew build
