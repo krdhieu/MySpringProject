@@ -22,15 +22,10 @@ jobs:
         java-version: 15.0.2
         distribution: 'adopt'
 
-    - name: Download and extract Gradle
-      run: |
-        wget https://services.gradle.org/distributions/gradle-6.8-bin.zip
-        unzip -d $HOME/gradle gradle-6.8-bin.zip
-
-    - name: Set Gradle environment variables
-      env:
-        GRADLE_HOME: $HOME/gradle/gradle-6.8
-        PATH: $HOME/gradle/gradle-6.8/bin:$PATH
+    - name: Set up Gradle
+      uses: gradle/setup-gradle@v1
+      with:
+        gradle-version: 6.8
 
     - name: Grant execute permission to gradlew
       run: chmod +x gradlew
