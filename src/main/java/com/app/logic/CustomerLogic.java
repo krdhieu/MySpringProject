@@ -46,7 +46,7 @@ public class CustomerLogic implements EntityLogic<Customer, Long> {
                     .withAge(customer.getAge())
                     .withGender(customer.getGender())
                     .withAddress(customer.getAddress())
-                    .withPhonenumber(customer.getPhonenumber())
+                    .withPhoneNumber(customer.getPhonenumber())
                     .withIsAdmin(customer.isAdmin());
             return customerRepo.save(existedCustomer);
         }

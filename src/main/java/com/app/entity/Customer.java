@@ -108,8 +108,8 @@ public class Customer extends BaseEntity {
         return this;
     }
 
-    public Customer withPhonenumber(String phonenumber) {
-        this.phoneNumber = phonenumber;
+    public Customer withPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
         return this;
     }
 
