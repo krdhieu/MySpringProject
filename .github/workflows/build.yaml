@@ -21,5 +21,9 @@ jobs:
       with:
         java-version: 15.0.2
         distribution: 'adopt'
+
+    - name: Grant execute permission to gradlew
+      run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build
