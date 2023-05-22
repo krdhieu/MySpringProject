@@ -22,11 +22,6 @@ jobs:
         java-version: 15.0.2
         distribution: 'adopt'
 
-    - name: Set up Gradle
-      uses: gradle/setup-gradle@v1
-      with:
-        gradle-version: 6.8
-
     - name: Grant execute permission to gradlew
       run: chmod +x gradlew
 
