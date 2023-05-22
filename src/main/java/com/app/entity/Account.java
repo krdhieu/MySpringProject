@@ -3,7 +3,7 @@ package com.app.entity;
 import com.app.entity.generics.BaseEntity;
 
 import javax.persistence.*;
-//account
+
 @Entity
 public class Account extends BaseEntity {
     @Id
