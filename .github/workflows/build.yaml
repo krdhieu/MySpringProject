@@ -23,10 +23,15 @@ jobs:
       with:
         java-version: 15.0.2
         distribution: 'adopt'
-        cache: gradle
+
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
 
     - name: Grant execute permission to gradlew
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --no-daemon --console=plain
