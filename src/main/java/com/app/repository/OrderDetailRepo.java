@@ -2,10 +2,12 @@ package com.app.repository;
 
 import com.app.entity.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -17,4 +19,9 @@ public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
             "join CustomerOrder o on od.order.id = o.id " +
             "join Customer c on c.id = o.customer.id where c.id = :customerId")
     List<OrderDetail> findByCustomerId(@Param("customerId") Long customerId);
+
+    @Transactional
+    @Modifying
+    @Query("Delete from OrderDetail od where od.id = :id")
+    int deleteOrderDetailById(@Param("id") Long id);
 }

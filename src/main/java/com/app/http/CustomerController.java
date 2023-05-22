@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@Api(value = "myproject", tags = {"customer"})
+@Api(value = "myProject", tags = {"customer"})
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 

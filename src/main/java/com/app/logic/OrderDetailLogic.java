@@ -48,13 +48,20 @@ public class OrderDetailLogic implements EntityLogic<OrderDetail, Long> {
         return null;
     }
 
+    public int deleteOrderDetailById(Long orderDetailId) {
+        return orderDetailRepo.deleteOrderDetailById(orderDetailId);
+    }
+
     @Override
     public void saveEntity(OrderDetail entity) {
-
+        orderDetailRepo.save(entity);
     }
 
     @Override
     public OrderDetail findById(Long id) {
+        Optional<OrderDetail> orderDetailOptional = orderDetailRepo.findById(id);
+        if(orderDetailOptional.isPresent())
+            return orderDetailOptional.get();
         return null;
     }
 }

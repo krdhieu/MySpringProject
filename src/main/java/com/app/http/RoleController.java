@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Api(value = "myproject", tags = {"role"})
+@Api(value = "myProject", tags = {"role"})
 @RequestMapping("/api/v1/role")
 public class RoleController {
     @Autowired
