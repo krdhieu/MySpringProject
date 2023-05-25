@@ -1,4 +1,4 @@
-package com.app.config;
+package com.app.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +19,8 @@ public class SecurityConfig {
         http
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .formLogin();
         return http.build();
     }
 }

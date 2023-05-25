@@ -24,6 +24,10 @@ public class AccountRolePermissionService {
         return accountRolePermissionLogic.findRolePermissionByAccountId(accountId);
     }
 
+    public List<Object[]> findRolePermissionNameByAccountId(Long accountId) {
+        return accountRolePermissionLogic.findRolePermissionNameByAccountId(accountId);
+    }
+
     public AccountRolePermission createAccountRolePermission(AccountRolePermission accountRolePermission) {
         return accountRolePermissionLogic.createAccountRolePermission(accountRolePermission);
     }

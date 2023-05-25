@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class AccountRolePermissionLogic implements EntityLogic<AccountRolePermission, Long> {
@@ -26,6 +27,14 @@ public class AccountRolePermissionLogic implements EntityLogic<AccountRolePermis
 
     public List<AccountRolePermission> findRolePermissionByAccountId(Long accountId) {
         return accountRolePermissionRepo.findRolePermissionByAccountId(accountId);
+    }
+
+    public List<Object[]> findRolePermissionNameByAccountId(Long accountId) {
+        accountRolePermissionRepo.findRolePermissionNameByAccountId(accountId).stream().map(object -> {
+            System.out.println("object: " + object[1]);
+            return object;
+        }).collect(Collectors.toList());
+        return accountRolePermissionRepo.findRolePermissionNameByAccountId(accountId);
     }
 
     public AccountRolePermission createAccountRolePermission(AccountRolePermission accountRolePermission) {

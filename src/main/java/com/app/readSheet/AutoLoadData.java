@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Component
+//@Component
 public class AutoLoadData {
     @Autowired
     ApplicationContext context;
@@ -39,12 +39,15 @@ public class AutoLoadData {
         OrderStatusLogic orderStatusLogic = context.getBean(OrderStatusLogic.class);
         readSheet.withEntity(orderStatusLogic);
         readSheet.readRecord("./src/main/resources/rawData/order-statuses.xlsx", OrderStatus.class, 1);
+
         AccountLogic accountLogic = context.getBean(AccountLogic.class);
         readSheet.withEntity(accountLogic);
         readSheet.readRecord("./src/main/resources/rawData/accounts.xlsx", Account.class, 1);
+
         AccountRolePermissionLogic accountRolePermissionLogic = context.getBean(AccountRolePermissionLogic.class);
         readSheet.withEntity(accountRolePermissionLogic);
         readSheet.readRecord("./src/main/resources/rawData/account-role-permission.xlsx", AccountRolePermission.class, 1);
+
         CustomerOrderLogic customerOrderLogic = context.getBean(CustomerOrderLogic.class);
         readSheet.withEntity(customerOrderLogic);
         readSheet.readRecord("./src/main/resources/rawData/orders.xlsx", CustomerOrder.class, 1);

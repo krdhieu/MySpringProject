@@ -22,6 +22,14 @@ public interface AccountRolePermissionRepo extends JpaRepository<AccountRolePerm
     List<AccountRolePermission> findRolePermissionByAccountId(@Param("accountId") Long accountId);
 
     @Transactional
+    @Query("Select arp from AccountRolePermission arp " +
+            "join arp.account a " +
+            "join arp.role r " +
+            "join arp.permission p " +
+            "where a.id = :accountId")
+    List<Object[]> findRolePermissionNameByAccountId(@Param("accountId") Long accountId);
+
+    @Transactional
     @Modifying
     @Query("Delete from AccountRolePermission arp where arp.id = :id")
     int deleteAccountRolePermissionById(@Param("id") Long id);

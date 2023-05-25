@@ -32,6 +32,11 @@ public class AccountRolePermissionController {
         return new ResponseEntity<>(accountRolePermissionService.findRolePermissionByAccountId(accountId), HttpStatus.OK);
     }
 
+    @GetMapping("/find-role-permission-name-by-account-id/{accountId}")
+    public @ResponseBody ResponseEntity<List<Object[]>> findRolePermissionNameByAccountId(@PathVariable("accountId") Long accountId) {
+        return new ResponseEntity<>(accountRolePermissionService.findRolePermissionNameByAccountId(accountId), HttpStatus.OK);
+    }
+
     @PostMapping("/create-account-role-permission")
     public @ResponseBody ResponseEntity<AccountRolePermission> createAccountRolePermission(@RequestBody AccountRolePermission accountRolePermission) {
         return new ResponseEntity<>(accountRolePermissionService.createAccountRolePermission(accountRolePermission), HttpStatus.OK);
