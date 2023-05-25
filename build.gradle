@@ -20,15 +20,19 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.5'
+
+    implementation 'org.postgresql:postgresql:42.5.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
     implementation 'org.springframework.security:spring-security-web:5.7.5'
     implementation 'org.springframework.security:spring-security-core:5.7.5'
     implementation 'org.springframework.boot:spring-boot-starter-security:2.7.5'
     implementation 'org.springframework.security:spring-security-config:5.7.5'
     implementation 'org.springframework.security:spring-security-crypto:5.7.5'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
-    implementation 'org.postgresql:postgresql:42.5.1'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     implementation 'org.apache.poi:poi:5.2.2'
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
@@ -38,7 +42,8 @@ dependencies {
 //    implementation 'io.springfox:springfox-boot-starter:3.0.0'
 //    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
 
 }
 
