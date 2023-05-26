@@ -1,11 +1,15 @@
 package com.app.config;
 
 import com.app.config.security.MyUserDetails;
+import com.app.config.security.MyUserDetailsConfig;
 import com.app.logic.AccountLogic;
+import com.app.logic.AccountRolePermissionLogic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,8 +19,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@RequiredArgsConstructor
+@ComponentScan("com.app")
+@Import(MyUserDetailsConfig.class)
 public class ApplicationConfig {
+
+    @Autowired
+    MyUserDetails myUserDetails;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -27,11 +35,11 @@ public class ApplicationConfig {
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Autowired
-            private AccountLogic accountLogic;
-
+            AccountLogic accountLogic;
             @Override
             public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return new MyUserDetails().setAccount(accountLogic.findAccountByUsername(username));
+                MyUserDetails myUserDetails1 =  myUserDetails.setAccount(accountLogic.findAccountByUsername(username));
+                return myUserDetails1;
             }
         };
     }
@@ -48,6 +56,4 @@ public class ApplicationConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-
 }

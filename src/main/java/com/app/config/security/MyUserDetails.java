@@ -1,9 +1,9 @@
 package com.app.config.security;
 
+import com.app.auth.AuthRequest;
 import com.app.entity.Account;
 import com.app.entity.AccountRolePermission;
 import com.app.logic.AccountRolePermissionLogic;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,10 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 public class MyUserDetails implements UserDetails {
     Account account;
-    @Autowired
     AccountRolePermissionLogic accountRolePermissionLogic;
 
     @Override
@@ -62,6 +60,11 @@ public class MyUserDetails implements UserDetails {
 
     public MyUserDetails setAccount(Account account) {
         this.account = account;
+        return this;
+    }
+
+    public MyUserDetails setAccountRolePermissionLogic(AccountRolePermissionLogic accountRolePermissionLogic) {
+        this.accountRolePermissionLogic = accountRolePermissionLogic;
         return this;
     }
 }
