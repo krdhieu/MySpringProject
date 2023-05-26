@@ -52,8 +52,8 @@ public class AutoLoadData {
         readSheet.withEntity(customerOrderLogic);
         readSheet.readRecord("./src/main/resources/rawData/orders.xlsx", CustomerOrder.class, 1);
 
-        OrderDetailLogic orderDetailLogic = context.getBean(OrderDetailLogic.class);
+        OrderDetailsLogic orderDetailLogic = context.getBean(OrderDetailsLogic.class);
         readSheet.withEntity(orderDetailLogic);
-        readSheet.readRecord("./src/main/resources/rawData/order-detail.xlsx", OrderDetail.class, 1);
+        readSheet.readRecord("./src/main/resources/rawData/order-details.xlsx", OrderDetails.class, 1);
     }
 }

@@ -22,7 +22,7 @@ public class CustomerOrder extends BaseEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")
-    private List<OrderDetail> orderDetailList;
+    private List<OrderDetails> orderDetailsList;
 
     private float totalPrice;
     private LocalDateTime orderAt;
@@ -54,12 +54,12 @@ public class CustomerOrder extends BaseEntity {
         this.customer = customer;
     }
 
-    public List<OrderDetail> getOrderDetailList() {
-        return orderDetailList;
+    public List<OrderDetails> getOrderDetailList() {
+        return orderDetailsList;
     }
 
-    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-        this.orderDetailList = orderDetailList;
+    public void setOrderDetailsList(List<OrderDetails> orderDetailsList) {
+        this.orderDetailsList = orderDetailsList;
     }
 
     public float getTotalPrice() {
@@ -144,7 +144,7 @@ public class CustomerOrder extends BaseEntity {
                 "id=" + id +
                 ", status=" + status +
                 ", customer=" + customer +
-                ", orderDetailList=" + orderDetailList +
+                ", orderDetailList=" + orderDetailsList +
                 ", totalPrice=" + totalPrice +
                 ", orderAt=" + orderAt +
                 ", shippedAt=" + shippedAt +

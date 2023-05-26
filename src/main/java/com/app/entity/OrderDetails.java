@@ -5,7 +5,7 @@ import com.app.entity.generics.BaseEntity;
 import javax.persistence.*;
 
 @Entity
-public class OrderDetail extends BaseEntity {
+public class OrderDetails extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -56,29 +56,29 @@ public class OrderDetail extends BaseEntity {
         this.product = product;
     }
 
-    public OrderDetail withOrder(CustomerOrder order) {
+    public OrderDetails withOrder(CustomerOrder order) {
         this.order = order;
         return this;
     }
 
-    public OrderDetail withProduct(Product product) {
+    public OrderDetails withProduct(Product product) {
         this.product = product;
         return this;
     }
 
-    public OrderDetail withQuantity(int quantity) {
+    public OrderDetails withQuantity(int quantity) {
         this.quantity = quantity;
         return this;
     }
 
-    public OrderDetail withPrice(float price) {
+    public OrderDetails withPrice(float price) {
         this.price = price;
         return this;
     }
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
+        return "OrderDetails{" +
                 "id=" + id +
                 ", order=" + order +
                 ", product=" + product +

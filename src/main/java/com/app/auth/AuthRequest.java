@@ -1,8 +1,5 @@
 package com.app.auth;
 
-import lombok.*;
-
-
 public class AuthRequest {
     private String username;
     private String password;

@@ -30,14 +30,14 @@ public class OrderStatusController {
         return new ResponseEntity<>(orderStatusService.findOrderStatusByName(name), HttpStatus.OK);
     }
 
-    @PutMapping("/update-order-status")
-    public @ResponseBody ResponseEntity<OrderStatus> updateOrderStatus(@RequestBody OrderStatus orderStatus) {
-        return new ResponseEntity<>(orderStatusService.updateOrderStatus(orderStatus), HttpStatus.ACCEPTED);
-    }
-
     @PostMapping("/create-order-status")
     public @ResponseBody ResponseEntity<OrderStatus> createOrderStatus(@RequestBody OrderStatus orderStatus) {
         return new ResponseEntity<>(orderStatusService.createOrderStatus(orderStatus), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-order-status")
+    public @ResponseBody ResponseEntity<OrderStatus> updateOrderStatus(@RequestBody OrderStatus orderStatus) {
+        return new ResponseEntity<>(orderStatusService.updateOrderStatus(orderStatus), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete-by-id/{id}")

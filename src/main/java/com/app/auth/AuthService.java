@@ -17,7 +17,6 @@ public class AuthService {
 
     @Autowired
     AccountRolePermissionLogic accountRolePermissionLogic;
-
     @Autowired
     AccountLogic accountLogic;
     @Autowired
