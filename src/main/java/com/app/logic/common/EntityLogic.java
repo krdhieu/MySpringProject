@@ -1,4 +1,4 @@
-package com.app.logic.generic;
+package com.app.logic.common;
 
 import org.springframework.stereotype.Component;
 

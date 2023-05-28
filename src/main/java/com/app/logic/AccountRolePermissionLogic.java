@@ -1,7 +1,7 @@
 package com.app.logic;
 
 import com.app.entity.AccountRolePermission;
-import com.app.logic.generic.EntityLogic;
+import com.app.logic.common.EntityLogic;
 import com.app.repository.AccountRolePermissionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

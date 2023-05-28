@@ -31,7 +31,9 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeRequests()
                 .antMatchers(
+                        "/",
                         "/api/v1/auth/**",
+                        "/api/v1/cart/**",
                         "/v3/api-docs",
                         "/v2/api-docs",
                         "/swagger-ui/**",
@@ -80,7 +82,7 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.DELETE, "/api/v1/order-detail/delete-by-id/{id}").hasAuthority("DELETE_ORDER_DETAILS")
 
                 // API Customer
-                .antMatchers("/api/v1/customer/**").hasAuthority("VIEW_CUSTOMER")
+                .antMatchers("/api/v1/customer/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/v1/customer/update-customer").hasAuthority("UPDATE_CUSTOMER")
                 .antMatchers(HttpMethod.POST, "/api/v1/customer/create-customer").hasAuthority("CREATE_CUSTOMER")
                 .antMatchers(HttpMethod.GET, "/api/v1/customer/find-by-name/{name}").hasAuthority("VIEW_CUSTOMER")
@@ -132,6 +134,12 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.GET, "/api/v1/permission/all").hasAuthority("VIEW_PERMISSION")
                 .antMatchers(HttpMethod.GET, "/api/v1/permission/find-by-name/{name}").hasAuthority("VIEW_PERMISSION")
                 .antMatchers(HttpMethod.GET, "/api/v1/permission/find-by-id/{id}").hasAuthority("VIEW_PERMISSION")
+
+                //API Cart
+//                .antMatchers("/api/v1/cart/**").hasAuthority("ADMIN")
+//                //test
+//                .antMatchers("/api/v1/cart/add-product/{productId}/{quantity}").hasAuthority("ADMIN")
+
 
                 .anyRequest()
                 .authenticated()

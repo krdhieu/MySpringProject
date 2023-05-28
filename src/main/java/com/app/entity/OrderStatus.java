@@ -1,6 +1,6 @@
 package com.app.entity;
 
-import com.app.entity.generics.BaseEntity;
+import com.app.entity.common.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;

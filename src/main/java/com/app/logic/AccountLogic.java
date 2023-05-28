@@ -1,7 +1,7 @@
 package com.app.logic;
 
 import com.app.entity.Account;
-import com.app.logic.generic.EntityLogic;
+import com.app.logic.common.EntityLogic;
 import com.app.repository.AccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,6 +46,7 @@ public class AccountLogic implements EntityLogic<Account, Long> {
         return accountRepo.deleteAccountById(id);
     }
 
+    // todo validate user who call method, just authors can change their info
     public Account updateAccount(Account account) {
         Account existedAccount = accountRepo.findByUsername(account.getUsername());
         if(existedAccount != null)
