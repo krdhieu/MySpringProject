@@ -58,7 +58,7 @@ public class CustomerOrderController {
         return new ResponseEntity<>(customerOrderService.findCustomerOrderByCreatedDate(date), HttpStatus.OK);
     }
 
-    @GetMapping("/find-by-customer-id-or-and-date/{customerId}/{date}")
+    @GetMapping("/find-by-customer-id-and-or-date/{customerId}/{date}")
     public @ResponseBody ResponseEntity<List<CustomerOrder>> findCustomerOrderByCustomerId(
             @PathVariable("customerId") Long customerId,
             @RequestParam("date") @DateTimeFormat(pattern = "dd.MM.yyyy") Date date,

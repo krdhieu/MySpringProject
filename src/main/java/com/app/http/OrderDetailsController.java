@@ -37,7 +37,7 @@ public class OrderDetailsController {
         return new ResponseEntity<>(orderDetailsService.findOrderDetailsById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/find-order-by-order-id/{orderId}")
+    @GetMapping("/find-order-detail-by-order-id/{orderId}")
     public @ResponseBody ResponseEntity<List<OrderDetails>> findOrderDetailsByOrderId(
             @PathVariable("orderId") Long orderId,
             Authentication authentication

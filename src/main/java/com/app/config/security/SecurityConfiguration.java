@@ -45,10 +45,10 @@ public class SecurityConfiguration {
                 )
                 .permitAll()
                 // API Product
-                .antMatchers(HttpMethod.GET, "/api/v1/product/find-by-name/{name}").hasAuthority("VIEW_PRODUCT")
-                .antMatchers(HttpMethod.GET, "/api/v1/product/find-by-product-type/{typeId}").hasAuthority("VIEW_PRODUCT")
-                .antMatchers(HttpMethod.GET, "/api/v1/product/find-by-id/{id}").hasAuthority("VIEW_PRODUCT")
-                .antMatchers(HttpMethod.GET, "/api/v1/product/all").hasAuthority("VIEW_PRODUCT")
+                .antMatchers(HttpMethod.GET, "/api/v1/product/find-by-name/{name}").hasAnyAuthority("VIEW_PRODUCT")
+                .antMatchers(HttpMethod.GET, "/api/v1/product/find-by-product-type/{typeId}").hasAnyAuthority("VIEW_PRODUCT")
+                .antMatchers(HttpMethod.GET, "/api/v1/product/find-by-id/{id}").hasAnyAuthority("VIEW_PRODUCT")
+                .antMatchers(HttpMethod.GET, "/api/v1/product/all").hasAnyAuthority("VIEW_PRODUCT")
                 .antMatchers(HttpMethod.POST, "/api/v1/product/create-product").hasAuthority("CREATE_PRODUCT")
                 .antMatchers(HttpMethod.PUT, "/api/v1/product/update-product").hasAuthority("UPDATE_PRODUCT")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/product/delete-by-id/{id}").hasAuthority("DELETE_PRODUCT")
@@ -74,12 +74,12 @@ public class SecurityConfiguration {
 
                 // API Order Detail
                 .antMatchers(HttpMethod.GET, "/api/v1/order-detail/find-order-detail-by-id/{id}").hasAuthority("VIEW_ORDER_DETAILS")
-                .antMatchers(HttpMethod.GET, "/api/v1/order-detail/find-order-by-order-id/{orderId}").hasAuthority("VIEW_ORDER_DETAILS")
+                .antMatchers(HttpMethod.GET, "/api/v1/order-detail/find-order-detail-by-order-id/{orderId}").hasAuthority("VIEW_ORDER_DETAILS")
                 .antMatchers(HttpMethod.GET, "/api/v1/order-detail/find-order-by-customer-id/{customerId}").hasAuthority("VIEW_ORDER_DETAILS")
                 .antMatchers(HttpMethod.GET, "/api/v1/order-detail/all").hasAuthority("VIEW_ORDER_DETAILS")
                 .antMatchers(HttpMethod.PUT, "/api/v1/order-detail/update-order-detail").hasAuthority("UPDATE_ORDER_DETAILS")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/order-detail/delete-by-id/{id}").hasAuthority("DELETE_ORDER_DETAILS")
-                .antMatchers("/api/v1/order-detail/**").hasAuthority("VIEW_ORDER_DETAILS")
+                .antMatchers("/api/v1/order-detail/**").hasAuthority("ADMIN")
 
                 // API Customer
                 .antMatchers(HttpMethod.PUT, "/api/v1/customer/update-customer").hasAuthority("UPDATE_CUSTOMER")
@@ -94,7 +94,7 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.GET, "/api/v1/customer-order/all").hasAuthority("VIEW_ORDER")
                 .antMatchers(HttpMethod.GET, "/api/v1/customer-order/find-by-id/{id}").hasAuthority("VIEW_ORDER")
                 .antMatchers(HttpMethod.GET, "/api/v1/customer-order/find-by-order-date/{date}").hasAuthority("VIEW_ORDER")
-                .antMatchers(HttpMethod.GET, "/api/v1/customer-order/find-by-customer-id/{customerId}").hasAuthority("VIEW_ORDER")
+                .antMatchers(HttpMethod.GET, "/find-by-customer-id-and-or-date/{customerId}/{date}").hasAuthority("VIEW_ORDER")
                 .antMatchers(HttpMethod.GET, "/api/v1/customer-order/find-by-status-id/{statusId}").hasAuthority("VIEW_ORDER")
                 .antMatchers(HttpMethod.POST, "/api/v1/customer-order/find-by-customer-and-created-date").hasAuthority("VIEW_ORDER")
                 .antMatchers(HttpMethod.POST, "/api/v1/customer-order/create-customer-order").hasAuthority("CREATE_ORDER")
@@ -105,7 +105,7 @@ public class SecurityConfiguration {
                 // API Account
                 .antMatchers(HttpMethod.GET, "/api/v1/account/all").hasAuthority("VIEW_ACCOUNT")
                 .antMatchers(HttpMethod.GET, "/api/v1/account/find-by-username/{username}").hasAuthority("VIEW_ACCOUNT")
-                .antMatchers(HttpMethod.GET, "/api/v1/account/find-by-id/{id}").hasAnyAuthority("VIEW_ACCOUNT", "CUSTOMER")
+                .antMatchers(HttpMethod.GET, "/api/v1/account/find-by-id/{id}").hasAnyAuthority("VIEW_ACCOUNT")
                 .antMatchers(HttpMethod.POST, "/api/v1/account/create-account").hasAuthority("CREATE_ACCOUNT")
                 .antMatchers(HttpMethod.PUT, "/api/v1/account/update-account").hasAuthority("UPDATE_ACCOUNT")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/account/delete-by-id/{id}").hasAuthority("DELETE_ACCOUNT")
@@ -136,9 +136,9 @@ public class SecurityConfiguration {
                 .antMatchers("/api/v1/permission/**").hasAuthority("ADMIN")
 
                 //API Cart
-//                .antMatchers("/api/v1/cart/**").hasAuthority("ADMIN")
-//                //test
-//                .antMatchers("/api/v1/cart/add-product/{productId}/{quantity}").hasAuthority("ADMIN")
+                .antMatchers("/api/v1/cart/add-product/{productId}/{quantity}").hasAnyAuthority("ADMIN", "CUSTOMER")
+                .antMatchers("/api/v1/cart//delete-product/{productId}").hasAnyAuthority("ADMIN", "CUSTOMER")
+                .antMatchers("/api/v1/cart/**").hasAuthority("ADMIN")
 
 
                 .anyRequest()
