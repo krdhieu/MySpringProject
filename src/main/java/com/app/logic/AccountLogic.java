@@ -37,6 +37,7 @@ public class AccountLogic implements EntityLogic<Account, Long> {
         return accountRepo.findByUsername(username);
     }
 
+
     public Account createAccount(Account account) {
         account.withPassword(this.encodePassword(account.getPassword()));
         return accountRepo.save(account);
@@ -46,7 +47,7 @@ public class AccountLogic implements EntityLogic<Account, Long> {
         return accountRepo.deleteAccountById(id);
     }
 
-    // todo validate user who call method, just authors can change their info
+
     public Account updateAccount(Account account) {
         Account existedAccount = accountRepo.findByUsername(account.getUsername());
         if(existedAccount != null)

@@ -1,17 +1,14 @@
 package com.app.logic;
 
-import com.app.entity.Customer;
-import com.app.entity.CustomerOrder;
-import com.app.entity.OrderStatus;
+import com.app.entity.*;
+import com.app.entity.dto.Cart;
 import com.app.logic.common.EntityLogic;
 import com.app.repository.CustomerOrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -21,6 +18,12 @@ public class CustomerOrderLogic implements EntityLogic<CustomerOrder, Long> {
 
     @Autowired
     OrderStatusLogic orderStatusLogic;
+
+    @Autowired
+    OrderDetailsLogic orderDetailsLogic;
+
+    @Autowired
+    ProductLogic productLogic;
 
     public List<CustomerOrder> getAllOrder() {
         return customerOrderRepo.findAll();
@@ -34,18 +37,12 @@ public class CustomerOrderLogic implements EntityLogic<CustomerOrder, Long> {
         return null;
     }
 
-    public List<CustomerOrder> findCustomerOrderByCustomerId(Long customerId) {
-        return customerOrderRepo.findCustomerOrderByCustomerId(customerId);
+    public List<CustomerOrder> findCustomerOrderByCustomerIdAndOrDate(Long customerId, Date orderedDate) {
+        return customerOrderRepo.findCustomerOrderByCustomerIdAndOrDate(customerId, orderedDate);
     }
 
     public List<CustomerOrder> findCustomerOrderByCreatedDate(Date date) {
         return customerOrderRepo.findCustomerOrderByCreatedDate(date);
-    }
-
-    public CustomerOrder createCustomerOrder(CustomerOrder customerOrder) {
-        List<OrderStatus> orderStatuses = orderStatusLogic.findOrderStatusByName("ORDERED");
-        customerOrder.withStatus(orderStatuses.get(0));
-        return customerOrderRepo.save(customerOrder);
     }
 
     public List<CustomerOrder> findCustomerOrderByCustomerAndCreatedDate(Customer customer, Date dateCreated) {
@@ -62,13 +59,29 @@ public class CustomerOrderLogic implements EntityLogic<CustomerOrder, Long> {
         return customerOrderRepo.findCustomerOrderByOrderStatus(statusId);
     }
 
+    public CustomerOrder createCustomerOrder(CustomerOrder customerOrder, Cart cart) {
+        if (cart == null || cart.getCartItems().size() == 0)
+            return null;
+        List<OrderStatus> orderStatuses = orderStatusLogic.findOrderStatusByName("ORDERED");
+        CustomerOrder order = customerOrder.withStatus(orderStatuses.get(0));
+        HashMap<Long, Integer> products = cart.getCartItems();
+        float totalPrice = 0;
+        for (Map.Entry<Long, Integer> item : products.entrySet()) {
+            Product product = productLogic.findProductById(item.getKey());
+            int quantity = item.getValue();
+            float price = quantity * product.getPrice();
+            orderDetailsLogic.createOrderDetail(customerOrder, product, quantity, price);
+            totalPrice += price;
+        }
+        customerOrder.withTotalPrice(totalPrice);
+        return customerOrderRepo.save(customerOrder);
+    }
+
     public CustomerOrder updateCustomerOrder(CustomerOrder customerOrder) {
         CustomerOrder existedCustomerOrder = this.findCustomerOrderById(customerOrder.getId());
         if (existedCustomerOrder != null) {
             existedCustomerOrder
-                    .withCustomer(customerOrder.getCustomer())
-                    .withStatus(customerOrder.getStatus())
-                    .withTotalPrice(customerOrder.getTotalPrice());
+                    .withStatus(customerOrder.getStatus());
             switch (customerOrder.getStatus().getName()) {
                 case "COMPLETED":
                     existedCustomerOrder.withCompletedAt(LocalDateTime.now());

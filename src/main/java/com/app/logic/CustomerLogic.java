@@ -55,9 +55,8 @@ public class CustomerLogic implements EntityLogic<Customer, Long> {
         return null;
     }
 
-    public Customer findCustomerByUsernameNPassword(String username, String password) {
-        String encodePassword = accountLogic.encodePassword(password);
-        return customerRepo.findCustomerByUsernameNPassword(username, encodePassword);
+    public Customer findCustomerByUsername(String username) {
+        return customerRepo.findCustomerByUsernameNPassword(username);
     }
 
     @Override

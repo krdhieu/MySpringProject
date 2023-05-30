@@ -3,6 +3,7 @@ package com.app.service;
 import com.app.entity.Customer;
 import com.app.entity.CustomerOrder;
 import com.app.entity.OrderStatus;
+import com.app.entity.dto.Cart;
 import com.app.logic.CustomerOrderLogic;
 import com.app.repository.CustomerOrderRepo;
 import org.hibernate.criterion.Order;
@@ -29,8 +30,8 @@ public class CustomerOrderService {
         return customerOrderLogic.findCustomerOrderByCreatedDate(date);
     }
 
-    public List<CustomerOrder> findCustomerOrderByCustomerId(Long id) {
-        return customerOrderLogic.findCustomerOrderByCustomerId(id);
+    public List<CustomerOrder> findCustomerOrderByCustomerIdAndOrDate(Long id, Date date) {
+        return customerOrderLogic.findCustomerOrderByCustomerIdAndOrDate(id, date);
     }
 
     public List<CustomerOrder> findCustomerOrderByCustomerAndCreatedDate(Customer customer, Date dateCreated) {
@@ -41,8 +42,8 @@ public class CustomerOrderService {
         return customerOrderLogic.findCustomerOrderByStatusId(statusId);
     }
 
-    public CustomerOrder createCustomerOrder(CustomerOrder customerOrder) {
-        return customerOrderLogic.createCustomerOrder(customerOrder);
+    public CustomerOrder createCustomerOrder(CustomerOrder customerOrder, Cart cart) {
+        return customerOrderLogic.createCustomerOrder(customerOrder, cart);
     }
 
     public CustomerOrder updateCustomerOrder(CustomerOrder customerOrder) {

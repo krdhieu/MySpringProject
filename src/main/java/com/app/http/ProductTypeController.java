@@ -33,16 +33,16 @@ public class ProductTypeController {
 
     @PostMapping("/create-product-type")
     public @ResponseBody ResponseEntity<ProductType> createProductType(@RequestBody ProductType productType) {
-        return new ResponseEntity<>(productTypeService.createProductType(productType), HttpStatus.OK);
+        return new ResponseEntity<>(productTypeService.createProductType(productType), HttpStatus.CREATED);
     }
 
     @PutMapping("/update-product-type")
     public @ResponseBody ResponseEntity<ProductType> updateProductType(@RequestBody ProductType productType) {
-        return new ResponseEntity<>(productTypeService.saveProductType(productType), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productTypeService.saveProductType(productType), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-by-id/{id}")
     public @ResponseBody ResponseEntity<Integer> deleteProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(productTypeService.deleteProductTypeById(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productTypeService.deleteProductTypeById(id), HttpStatus.OK);
     }
 }

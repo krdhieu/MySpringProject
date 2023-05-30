@@ -1,6 +1,9 @@
 package com.app.logic;
 
+import com.app.entity.CustomerOrder;
 import com.app.entity.OrderDetails;
+import com.app.entity.Product;
+import com.app.entity.dto.Cart;
 import com.app.logic.common.EntityLogic;
 import com.app.repository.OrderDetailsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,17 @@ public class OrderDetailsLogic implements EntityLogic<OrderDetails, Long> {
         return orderDetailsRepo.findByCustomerId(customerId);
     }
 
+    public OrderDetails createOrderDetail(CustomerOrder customerOrder, Product product, Integer quantity, Float price) {
+        OrderDetails orderDetails
+                = new OrderDetails()
+                .withOrder(customerOrder)
+                .withProduct(product)
+                .withQuantity(quantity)
+                .withPrice(price);
+        return orderDetailsRepo.save(orderDetails);
+    }
+
+
     public OrderDetails updateOrderDetails(OrderDetails orderDetails) {
         OrderDetails existedOrderDetails = this.findOrderDetailsById(orderDetails.getId());
         if (existedOrderDetails != null) {
@@ -48,6 +62,7 @@ public class OrderDetailsLogic implements EntityLogic<OrderDetails, Long> {
         return null;
     }
 
+
     public int deleteOrderDetailById(Long orderDetailsId) {
         return orderDetailsRepo.deleteOrderDetailsById(orderDetailsId);
     }
@@ -60,7 +75,7 @@ public class OrderDetailsLogic implements EntityLogic<OrderDetails, Long> {
     @Override
     public OrderDetails findById(Long id) {
         Optional<OrderDetails> orderDetailsOptional = orderDetailsRepo.findById(id);
-        if(orderDetailsOptional.isPresent())
+        if (orderDetailsOptional.isPresent())
             return orderDetailsOptional.get();
         return null;
     }

@@ -1,17 +1,39 @@
 package com.app.entity.dto;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 
 @Service
 public class CartService {
     @Autowired
     CartLogic cartLogic;
 
-    public Cart addProductToCart(HttpServletRequest request, long productId, int quantity) {
-        return cartLogic.addProductToCart(request ,productId, quantity);
+    public Cookie addProductToCart(Cart currentCart, long productId, int quantity) {
+        return cartLogic.saveCartIntoCookie(cartLogic.addProductToCart(currentCart, productId, quantity));
     }
+
+    public Cookie insertNewCartIntoCookie() {
+        return cartLogic.saveCartIntoCookie(new Cart());
+    }
+
+    public Cart decodeCartFromEncodedJson(String cookieValue) {
+        return cartLogic.decodeCartFromEncodedJson(cookieValue);
+    }
+
+    public Cookie deleteProductInCart(Long productId, Cart currentCart) {
+        return cartLogic.saveCartIntoCookie(cartLogic.deleteProductInCart(productId, currentCart));
+    }
+
+    public Cart decodeCartFromCookie(Cookie[] cookies) {
+        Cart currentCart = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                currentCart = this.decodeCartFromEncodedJson(cookie.getValue());
+            }
+        }
+        return currentCart;
+    }
+
 }

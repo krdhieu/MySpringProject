@@ -1,5 +1,6 @@
 package com.app.http;
 
+import com.app.config.security.MyUserDetails;
 import com.app.entity.Customer;
 import com.app.service.CustomerService;
 import io.swagger.annotations.Api;
@@ -7,6 +8,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -21,6 +25,9 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    UserDetailsService userDetailsService;
+
     @ApiOperation(value = "get all customer info", response = Customer.class)
     @GetMapping("/all")
     public @ResponseBody ResponseEntity<List<Customer>> getCustomers() {
@@ -29,8 +36,14 @@ public class CustomerController {
 
     @ApiOperation(value = "find customer by customer's id, return customer info", response = Customer.class)
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Customer> findCustomerById(@PathVariable("id") Long customerId) {
-        return new ResponseEntity<>(customerService.findCustomerById(customerId), HttpStatus.OK);
+    public ResponseEntity<Customer> findCustomerById(
+            @PathVariable("id") Long customerId,
+            Authentication authentication
+    ) {
+        MyUserDetails myUserDetails = (MyUserDetails) userDetailsService.loadUserByUsername(authentication.getName());
+        if (myUserDetails.isAdmin() || myUserDetails.isCurrentUser(customerId))
+            return new ResponseEntity<>(customerService.findCustomerById(customerId), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @ApiOperation(value = "find customer by name, return a list of customer match with name at path variable", response = Customer.class)
@@ -42,19 +55,25 @@ public class CustomerController {
     @ApiOperation(value = "create customer", response = Customer.class)
     @PostMapping("/create-customer")
     public @ResponseBody ResponseEntity<Customer> createCustomer(@RequestBody Customer newCustomer) {
-        return new ResponseEntity<>(customerService.createCustomer(newCustomer), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.createCustomer(newCustomer), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "update customer is existed in db", response = Customer.class)
     @PutMapping("/update-customer")
-    public @ResponseBody ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) throws IOException {
-        return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.ACCEPTED);
+    public @ResponseBody ResponseEntity<Customer> saveCustomer(
+            @RequestBody Customer customer,
+            Authentication authentication
+    ) throws IOException {
+        MyUserDetails myUserDetails = (MyUserDetails) userDetailsService.loadUserByUsername(authentication.getName());
+        if (myUserDetails.isAdmin() || myUserDetails.isCurrentUser(customer.getId()))
+            return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @ApiOperation(value = "delete customer by customer's id", response = Customer.class)
     @DeleteMapping("/delete-by-id/{id}")
     public @ResponseBody ResponseEntity<Integer> deleteCustomer(@PathVariable("id") Long customerId) {
-        return new ResponseEntity<>(customerService.deleteCustomer(customerId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(customerService.deleteCustomer(customerId), HttpStatus.OK);
     }
 
 

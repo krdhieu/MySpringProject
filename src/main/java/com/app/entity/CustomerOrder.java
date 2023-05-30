@@ -21,7 +21,7 @@ public class CustomerOrder extends BaseEntity {
     private Customer customer;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetails> orderDetailsList;
 
     private float totalPrice;

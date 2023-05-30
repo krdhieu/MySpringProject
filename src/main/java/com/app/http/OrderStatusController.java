@@ -32,17 +32,17 @@ public class OrderStatusController {
 
     @PostMapping("/create-order-status")
     public @ResponseBody ResponseEntity<OrderStatus> createOrderStatus(@RequestBody OrderStatus orderStatus) {
-        return new ResponseEntity<>(orderStatusService.createOrderStatus(orderStatus), HttpStatus.OK);
+        return new ResponseEntity<>(orderStatusService.createOrderStatus(orderStatus), HttpStatus.CREATED);
     }
 
     @PutMapping("/update-order-status")
     public @ResponseBody ResponseEntity<OrderStatus> updateOrderStatus(@RequestBody OrderStatus orderStatus) {
-        return new ResponseEntity<>(orderStatusService.updateOrderStatus(orderStatus), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(orderStatusService.updateOrderStatus(orderStatus), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-by-id/{id}")
     public @ResponseBody ResponseEntity<Integer> deleteOrderStatus(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(orderStatusService.deleteOrderStatusById(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(orderStatusService.deleteOrderStatusById(id), HttpStatus.OK);
     }
 
 }

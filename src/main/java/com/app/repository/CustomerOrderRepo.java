@@ -14,8 +14,8 @@ import java.util.List;
 
 @Repository
 public interface CustomerOrderRepo extends JpaRepository<CustomerOrder, Long> {
-    @Query("Select co from CustomerOrder co join co.customer cu where cu.id = :customerId")
-    List<CustomerOrder> findCustomerOrderByCustomerId(@Param("customerId") Long customerId);
+    @Query("Select co from CustomerOrder co join co.customer cu where cu.id = :customerId AND (:orderedDate IS NULL OR co.orderAt = :orderedDate)")
+    List<CustomerOrder> findCustomerOrderByCustomerIdAndOrDate(@Param("customerId") Long customerId, @Param("orderedDate") Date orderedDate);
 
     @Query("Select co from CustomerOrder co where co.createAt = :date")
     List<CustomerOrder> findCustomerOrderByCreatedDate(@Param("date") Date dateCreated);
