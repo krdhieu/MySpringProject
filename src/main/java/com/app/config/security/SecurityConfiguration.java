@@ -32,6 +32,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers(
                         "/",
+                        "/api/v1/account/**",
                         "/api/v1/auth/**",
                         "/api/v1/cart/**",
                         "/v3/api-docs",
@@ -140,6 +141,8 @@ public class SecurityConfiguration {
                 .antMatchers("/api/v1/cart//delete-product/{productId}").hasAnyAuthority("ADMIN", "CUSTOMER")
                 .antMatchers("/api/v1/cart/**").hasAuthority("ADMIN")
 
+                //API Avatar
+                .antMatchers("/static/uploads/avatar/**", "/api/v1/customer-avatar/**").hasAnyAuthority("CUSTOMER", "ADMIN")
 
                 .anyRequest()
                 .authenticated()
