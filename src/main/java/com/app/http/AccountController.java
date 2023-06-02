@@ -17,10 +17,8 @@ import java.util.List;
 public class AccountController {
     @Autowired
     AccountService accountService;
-
     @Autowired
     UserDetailsService userDetailsService;
-
 
     @GetMapping("/all")
     public @ResponseBody ResponseEntity<List<Account>> getAllAccount() {
