@@ -71,26 +71,23 @@ public class CustomerAvatarController {
         }
         Customer customer = customerService.findCustomerById(customerId);
         if (customer == null)
-            return new ResponseEntity( HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         if (file == null || file.isEmpty()) {
-            return new ResponseEntity( HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         MyUserDetails myUserDetails = (MyUserDetails) userDetailsService.loadUserByUsername(authentication.getName());
         if (myUserDetails.isAdmin() || myUserDetails.isCurrentUser(customerId)) {
             String uploadDir = avatarDir;
             String filePath = fileUploadService.uploadFile(file, uploadDir);
-            if (customerAvatarService.findCustomerAvatarByCustomer(customer) == null) {
-                CustomerAvatar customerAvatar = new CustomerAvatar();
-                customerAvatar.setImgPath(uploadDir + "");
+            if (customerAvatarService.findCustomerAvatarByCustomer(customer) == null)
                 return new ResponseEntity(customerAvatarService.addCustomerAvatar(filePath, customer), HttpStatus.OK);
-            }
             return new ResponseEntity(customerAvatarService.updateCustomerAvatar(filePath, customer), HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping("/delete-by-id/{id}")
-    public ResponseEntity<Integer> deleteByCustomerId(
+    public ResponseEntity<Integer> deleteAvatarById(
             @PathVariable("id") Long avatarId,
             Authentication authentication
     ) {

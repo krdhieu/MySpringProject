@@ -51,7 +51,7 @@ public class CustomerAvatarLogic {
     public CustomerAvatar updateCustomerAvatar(String filePath, Customer customer) {
         CustomerAvatar currentCustomerAvatar = customerAvatarRepo.findByCustomer(customer);
         if (currentCustomerAvatar != null) {
-            currentCustomerAvatar.setImgPath(filePath);
+            currentCustomerAvatar.setImgPath(appUrl + filePath);
             return customerAvatarRepo.save(currentCustomerAvatar);
         }
         return null;
