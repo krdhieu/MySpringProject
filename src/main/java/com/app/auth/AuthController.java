@@ -28,15 +28,14 @@ public class AuthController {
     @Autowired
     CartService cartService;
 
-
-
     @PostMapping("/login")
     public @ResponseBody ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
         if (authRequest == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         response.addCookie(cartService.insertNewCartIntoCookie());
-        return new ResponseEntity<>(authService.responseToken(authRequest), HttpStatus.OK);
+        response.addCookie(authService.jwtCookie(authRequest));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/logout")

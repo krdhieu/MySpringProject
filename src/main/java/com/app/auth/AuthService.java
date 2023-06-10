@@ -45,4 +45,25 @@ public class AuthService {
         System.out.println(role_permission);
         return new AuthResponse().withToken(jwt);
     }
+
+    public Cookie jwtCookie(AuthRequest authRequest) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authRequest.getUsername(),
+                        authRequest.getPassword()
+                )
+        );
+        Account account = accountLogic.findAccountByUsername(authRequest.getUsername());
+        MyUserDetails myUserDetails = (MyUserDetails) userDetailsService.loadUserByUsername(account.getUsername());
+        String jwt = jwtService.generateToken(myUserDetails.setAccount(account));
+        StringBuilder role_permission = new StringBuilder();
+        for (GrantedAuthority authority : myUserDetails.getAuthorities()) {
+            role_permission.append(authority.getAuthority()).append("; ");
+        }
+        System.out.println(role_permission);
+        Cookie jwtCookie = new Cookie("jwt", jwt);
+        jwtCookie.setMaxAge(86400);
+        jwtCookie.setPath("/");
+        return jwtCookie;
+    }
 }
