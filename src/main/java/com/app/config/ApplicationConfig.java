@@ -25,6 +25,9 @@ public class ApplicationConfig {
     @Value("${app.avatarDir}")
     private String avatarDir;
 
+    @Value("${app.productDir}")
+    private String productDir;
+
     @Bean
     public String appUrl() {
         return appUrl;
@@ -33,6 +36,10 @@ public class ApplicationConfig {
     @Bean
     public String avatarDir() {
         return avatarDir;
+    }
+
+    @Bean String productDir() {
+        return productDir;
     }
 
     @Bean

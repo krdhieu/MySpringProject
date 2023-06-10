@@ -39,5 +39,19 @@ public class FileUploadLogic {
         return null;
     }
 
+    public String extractPathFromImgPath(String imgPath) {
+        String[] imgPathElements = imgPath.split("/");
+        int startIndex = -1;
+        for (int i = 0; i < imgPathElements.length; i++) {
+            if (imgPathElements[i].equals("static")) {
+                startIndex = i;
+                break;
+            }
+        }
+        if (startIndex != -1) {
+            return String.join("/", Arrays.copyOfRange(imgPathElements, startIndex, imgPathElements.length));
+        }
+        return null;
+    }
 
 }
