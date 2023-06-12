@@ -2,11 +2,11 @@ package com.app.readSheet;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URL;
+
 import java.util.Map;
 
 import com.app.logic.common.EntityLogic;
@@ -16,7 +16,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import javax.servlet.ServletContext;
 
@@ -32,8 +31,10 @@ public class ReadSheet<T, I> {
     ServletContext servletContext;
 
     public void readRecord(String filePath, Class clazz, int headerRowNum) {
-        try  {
-            FileInputStream file = new FileInputStream(filePath);
+        try {
+            String absoluteDiskPath = servletContext.getRealPath(filePath);
+            File fl = new File(absoluteDiskPath);
+            FileInputStream file = new FileInputStream(fl);
             Workbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
             Row headerRow = sheet.getRow(0);
@@ -106,16 +107,5 @@ public class ReadSheet<T, I> {
     public ReadSheet<T, I> withEntity(EntityLogic<T, I> entityLogic) {
         this.entityLogic = entityLogic;
         return this;
-    }
-
-    private File getResourceFile(String fileName) {
-        URL url = this.getClass()
-                .getClassLoader()
-                .getResource(fileName);
-        if (url == null) {
-            throw new IllegalArgumentException(fileName + " is not found 1");
-        }
-        File file = new File(url.getFile());
-        return file;
     }
 }
