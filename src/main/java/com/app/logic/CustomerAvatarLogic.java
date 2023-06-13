@@ -4,10 +4,15 @@ import com.app.entity.Customer;
 import com.app.entity.CustomerAvatar;
 import com.app.entity.CustomerOrder;
 import com.app.repository.CustomerAvatarRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resources;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,8 +22,12 @@ import java.util.Optional;
 
 @Component
 public class CustomerAvatarLogic {
+    private Logger logger = LoggerFactory.getLogger(CustomerAvatarLogic.class);
     @Autowired
     CustomerAvatarRepo customerAvatarRepo;
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     @Autowired
     @Qualifier("appUrl")
@@ -62,8 +71,10 @@ public class CustomerAvatarLogic {
         if (currentAvatar == null) return 0;
         int rowEffected = customerAvatarRepo.deleteCustomerAvatarById(id);
         if (rowEffected == 1) {
-            String filePath = "src/main/resources/" + extractPathFromImgPath(currentAvatar.getImgPath());
-            Path path = Paths.get(filePath);
+            String filePath = extractPathFromImgPath(currentAvatar.getImgPath());
+            Resource fileResource = resourceLoader.getResource("classpath:" + filePath);
+            logger.info(">>>>>>Customer avatar delete img path: " + filePath);
+            Path path = fileResource.getFile().toPath();
             Files.delete(path);
         }
         return rowEffected;

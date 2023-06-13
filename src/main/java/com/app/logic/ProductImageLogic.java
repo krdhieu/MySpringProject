@@ -5,8 +5,12 @@ import com.app.entity.ProductImage;
 import com.app.repository.ProductImageRepo;
 import com.app.upload.FileUploadLogic;
 import org.hibernate.annotations.NaturalId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,10 +21,14 @@ import java.util.Optional;
 
 @Component
 public class ProductImageLogic {
+    private Logger logger = LoggerFactory.getLogger(ProductImageLogic.class);
     @Autowired
     ProductImageRepo productImageRepo;
     @Autowired
     FileUploadLogic fileUploadLogic;
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     @Autowired
     @Qualifier("appUrl")
@@ -33,7 +41,6 @@ public class ProductImageLogic {
             return productImageOptional.get();
         return null;
     }
-
 
     public ProductImage findByProductImageByProduct(Product product) {
         if (product == null) return null;
@@ -61,8 +68,10 @@ public class ProductImageLogic {
         if (currentImg == null) return 0;
         int rowEffected = productImageRepo.deleteProductImageById(id);
         if (rowEffected == 1) {
-            String filePath = "classpath:" + fileUploadLogic.extractPathFromImgPath(currentImg.getImgPath());
-            Path path = Paths.get(filePath);
+            String filePath = fileUploadLogic.extractPathFromImgPath(currentImg.getImgPath());
+            Resource fileResource = resourceLoader.getResource("classpath:" + filePath);
+            logger.info(">>>>>>Customer avatar delete img path: " + filePath);
+            Path path = fileResource.getFile().toPath();
             Files.delete(path);
         }
         return rowEffected;
