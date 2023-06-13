@@ -7,7 +7,10 @@ import com.app.logic.CustomerAvatarLogic;
 import com.app.logic.CustomerLogic;
 import com.app.service.CustomerAvatarService;
 import com.app.service.CustomerService;
+import com.app.upload.FileUploadLogic;
 import com.app.upload.FileUploadService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,8 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/v1/customer-avatar")
 public class CustomerAvatarController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerAvatarController.class);
     @Autowired
     CustomerAvatarService customerAvatarService;
     @Autowired
@@ -79,6 +84,7 @@ public class CustomerAvatarController {
         if (myUserDetails.isAdmin() || myUserDetails.isCurrentUser(customerId)) {
             String uploadDir = avatarDir;
             String filePath = fileUploadService.uploadFile(file, uploadDir);
+            logger.warn("===============>file path to save: " + filePath);
             if (customerAvatarService.findCustomerAvatarByCustomer(customer) == null)
                 return new ResponseEntity(customerAvatarService.addCustomerAvatar(filePath, customer), HttpStatus.OK);
             return new ResponseEntity(customerAvatarService.updateCustomerAvatar(filePath, customer), HttpStatus.OK);
