@@ -1,0 +1,25 @@
+2023-06-12 11:17:48,598 INFO [main] org.springframework.boot.StartupInfoLogger: Starting App using Java 15.0.2 on BiGAsS with PID 9968 (E:\Documents\Java\MyProject1\build\classes\java\main started by BiGAsS in E:\Documents\Java\MyProject1)
+2023-06-12 11:17:48,602 DEBUG [main] org.springframework.boot.StartupInfoLogger: Running with Spring Boot v2.7.9, Spring v5.3.25
+2023-06-12 11:17:48,603 INFO [main] org.springframework.boot.SpringApplication: No active profile set, falling back to 1 default profile: "default"
+2023-06-12 11:17:50,463 INFO [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-12 11:17:50,715 INFO [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 227 ms. Found 12 JPA repository interfaces.
+2023-06-12 11:17:52,037 INFO [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-06-12 11:17:52,053 INFO [main] org.apache.juli.logging.DirectJDKLog: Initializing ProtocolHandler ["http-nio-8080"]
+2023-06-12 11:17:52,053 INFO [main] org.apache.juli.logging.DirectJDKLog: Starting service [Tomcat]
+2023-06-12 11:17:52,054 INFO [main] org.apache.juli.logging.DirectJDKLog: Starting Servlet engine: [Apache Tomcat/9.0.68]
+2023-06-12 11:17:52,275 INFO [main] org.apache.juli.logging.DirectJDKLog: Initializing Spring embedded WebApplicationContext
+2023-06-12 11:17:52,276 INFO [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 3583 ms
+2023-06-12 11:17:52,701 INFO [main] org.hibernate.jpa.internal.util.LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-12 11:17:52,809 INFO [main] org.hibernate.Version: HHH000412: Hibernate ORM core version 5.6.12.Final
+2023-06-12 11:17:53,142 INFO [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager: HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-06-12 11:17:53,282 INFO [main] com.zaxxer.hikari.HikariDataSource: HikariPool-1 - Starting...
+2023-06-12 11:17:53,606 INFO [main] com.zaxxer.hikari.HikariDataSource: HikariPool-1 - Start completed.
+2023-06-12 11:17:53,632 INFO [main] org.hibernate.dialect.Dialect: HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-06-12 11:17:55,088 INFO [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-12 11:17:55,097 INFO [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-12 11:17:56,042 DEBUG [main] org.springframework.web.filter.GenericFilterBean: Filter 'jwtAuthenticationFilter' configured for use
+2023-06-12 11:17:56,879 INFO [main] org.springframework.security.web.DefaultSecurityFilterChain: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@227fc322, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63053b71, org.springframework.security.web.context.SecurityContextPersistenceFilter@6af29394, org.springframework.security.web.header.HeaderWriterFilter@193f3306, org.springframework.security.web.authentication.logout.LogoutFilter@797ee1a9, com.app.config.security.jwt.JwtAuthenticationFilter@684f7f1c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@528c4353, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a06b95, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4687c184, org.springframework.security.web.session.SessionManagementFilter@3c34c491, org.springframework.security.web.access.ExceptionTranslationFilter@4724b2c1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2cd31214]
+2023-06-12 11:17:57,096 WARN [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-12 11:17:59,279 INFO [main] org.apache.juli.logging.DirectJDKLog: Starting ProtocolHandler ["http-nio-8080"]
+2023-06-12 11:17:59,356 INFO [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-06-12 11:17:59,378 INFO [main] org.springframework.boot.StartupInfoLogger: Started App in 11.755 seconds (JVM running for 12.723)

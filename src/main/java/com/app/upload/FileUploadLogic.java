@@ -1,8 +1,12 @@
 package com.app.upload;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletContext;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,11 +18,18 @@ import java.util.UUID;
 
 @Component
 public class FileUploadLogic {
+    @Autowired
+    ServletContext servletContext;
+    private static final Logger logger = LoggerFactory.getLogger(FileUploadLogic.class);
     public String uploadFile(MultipartFile file, String uploadDir) {
+        String absoluteDiskPath = servletContext.getRealPath(uploadDir);
+        logger.warn("absolute disk path from file upload logic" + absoluteDiskPath);
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-        Path filePath = Paths.get(uploadDir).resolve(fileName);
+        Path filePath = Paths.get(absoluteDiskPath).resolve(fileName);
+        logger.warn("file path" + filePath);
         try {
-            Files.copy(file.getInputStream(), filePath);
+            file.transferTo(filePath.toFile());
+//            Files.copy(file.getInputStream(), filePath);
             return extractPathFromFilePath(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);

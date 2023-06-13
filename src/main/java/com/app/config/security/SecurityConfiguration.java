@@ -129,14 +129,13 @@ public class SecurityConfiguration {
 
                 //API Cart
                 .antMatchers("/api/v1/cart/add-product/{productId}/{quantity}").hasAnyAuthority("ADMIN", "CUSTOMER")
-                .antMatchers("/api/v1/cart//delete-product/{productId}").hasAnyAuthority("ADMIN", "CUSTOMER")
+                .antMatchers("/api/v1/cart/delete-product/{productId}").hasAnyAuthority("ADMIN", "CUSTOMER")
 
                 //API Avatar
-                .antMatchers(HttpMethod.GET).hasAnyAuthority("CUSTOMER", "ADMIN")
                 .antMatchers("/api/v1/customer-avatar/**").hasAnyAuthority("CUSTOMER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/static/uploads/avatar/**").hasAnyAuthority("CUSTOMER", "ADMIN")
                 //API Product Image
-                .antMatchers("/static/uploads/product/**").hasAnyAuthority("CUSTOMER", "ADMIN")
-                .antMatchers(HttpMethod.GET).hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/static/uploads/product/**").hasAnyAuthority("CUSTOMER", "ADMIN")
 
                 .anyRequest()
                 .authenticated()
