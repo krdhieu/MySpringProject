@@ -133,9 +133,10 @@ public class SecurityConfiguration {
 
                 //API Avatar
                 .antMatchers("/api/v1/customer-avatar/**").hasAnyAuthority("CUSTOMER", "ADMIN")
-                .antMatchers(HttpMethod.GET, "/static/uploads/avatar/**").hasAnyAuthority("CUSTOMER", "ADMIN")
+//                .antMatchers(HttpMethod.GET, "/static/uploads/avatar/**").hasAnyAuthority("CUSTOMER", "ADMIN")
                 //API Product Image
-                .antMatchers(HttpMethod.GET, "/static/uploads/product/**").hasAnyAuthority("CUSTOMER", "ADMIN")
+                .antMatchers("/api/v1/product-image/**").hasAnyAuthority("ADMIN")
+//                .antMatchers(HttpMethod.GET, "/static/uploads/product/**").hasAnyAuthority("CUSTOMER", "ADMIN")
 
                 .anyRequest()
                 .authenticated()

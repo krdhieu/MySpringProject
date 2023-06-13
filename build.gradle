@@ -41,9 +41,10 @@ dependencies {
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
 
     implementation 'io.swagger:swagger-annotations:1.6.9'
-//    implementation 'io.springfox:springfox-swagger2:3.0.0'
-//    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-//    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
@@ -54,10 +55,10 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.36'
 }
 
-//configurations {
-//    compile.exclude module: 'spring-boot-starter-tomcat'
-//    compile.exclude group: 'org.apache.tomcat'
-//}
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude group: 'org.apache.tomcat'
+}
 
 test {
     useJUnitPlatform()
