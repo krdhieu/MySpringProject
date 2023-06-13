@@ -61,7 +61,7 @@ public class ProductImageLogic {
         if (currentImg == null) return 0;
         int rowEffected = productImageRepo.deleteProductImageById(id);
         if (rowEffected == 1) {
-            String filePath = "src/main/resources/" + fileUploadLogic.extractPathFromImgPath(currentImg.getImgPath());
+            String filePath = "classpath:" + fileUploadLogic.extractPathFromImgPath(currentImg.getImgPath());
             Path path = Paths.get(filePath);
             Files.delete(path);
         }
