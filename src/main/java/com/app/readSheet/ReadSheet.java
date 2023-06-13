@@ -1,9 +1,11 @@
 package com.app.readSheet;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.Map;
 
 import com.app.logic.common.EntityLogic;
@@ -12,6 +14,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 
@@ -24,7 +28,8 @@ public class ReadSheet<T, I> {
 
     public void readRecord(String filePath, Class clazz, int headerRowNum) {
         try {
-            FileInputStream file = new FileInputStream(filePath);
+            Resource resource = new ClassPathResource(filePath);
+            FileInputStream file = new FileInputStream(resource.getFile());
             Workbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
             Row headerRow = sheet.getRow(0);
