@@ -13,8 +13,12 @@ import com.app.logic.common.EntityLogic;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
@@ -22,18 +26,19 @@ import javax.servlet.ServletContext;
 
 @Component
 public class ReadSheet<T, I> {
+    private Logger logger = LoggerFactory.getLogger(ReadSheet.class);
     @Autowired
     ApplicationContext context;
     static XSSFRow row;
     EntityLogic entityLogic;
-
     @Autowired
-    ServletContext servletContext;
+    ResourceLoader resourceLoader;
 
     public void readRecord(String filePath, Class clazz, int headerRowNum) {
         try {
-            String absoluteDiskPath = servletContext.getRealPath(filePath);
-            File fl = new File(absoluteDiskPath);
+            Resource resource = resourceLoader.getResource("classpath:" + filePath);
+            File fl = resource.getFile();
+            logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>file path from read record: " + fl.getPath() );
             FileInputStream file = new FileInputStream(fl);
             Workbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
