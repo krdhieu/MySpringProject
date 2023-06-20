@@ -2,9 +2,11 @@ package com.app.config;
 
 import com.app.upload.FileUploadLogic;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.slf4j.Logger;
@@ -32,5 +34,15 @@ public class StaticResourcesConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/uploads/product/**")
                 .addResourceLocations("classpath:/static/uploads/product/");
 
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry
+                .addMapping("/api/v1/**")
+                .allowedOrigins("http://localhost:3000/")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true);;
     }
 }
