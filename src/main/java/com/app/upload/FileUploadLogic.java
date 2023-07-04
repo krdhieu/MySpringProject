@@ -28,6 +28,7 @@ public class FileUploadLogic {
         Path filePath = Paths.get(absoluteDiskPath).resolve(fileName);
         try {
             file.transferTo(filePath.toFile());
+            logger.warn(">>>>>>>>>file path to save: ++ " + filePath.toString());
             return extractPathFromFilePath(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
