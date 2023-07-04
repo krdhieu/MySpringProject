@@ -44,6 +44,9 @@ public class ProductImageController {
     public @ResponseBody ResponseEntity<ProductImage> findProductImageById(@PathVariable("id") Long imgId) {
         if (imgId == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        ProductImage productImage = productImageService.findProductImageById(imgId);
+        if(productImage == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(productImageService.findProductImageById(imgId), HttpStatus.OK);
     }
 
@@ -53,6 +56,9 @@ public class ProductImageController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         Product product = productService.findProductById(productId);
         if (product == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        ProductImage productImage = productImageService.findByProductImageByProduct(product);
+        if(productImage == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(productImageService.findByProductImageByProduct(product), HttpStatus.OK);
     }
