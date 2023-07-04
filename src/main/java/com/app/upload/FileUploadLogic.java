@@ -27,8 +27,8 @@ public class FileUploadLogic {
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
         Path filePath = Paths.get(absoluteDiskPath).resolve(fileName);
         try {
-            file.transferTo(filePath.toFile());
             logger.warn(">>>>>>>>>file path to save: ++ " + filePath.toString());
+            file.transferTo(filePath.toFile());
             return extractPathFromFilePath(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -36,7 +36,7 @@ public class FileUploadLogic {
     }
 
     public String extractPathFromFilePath(Path filePath) {
-        String[] pathElements = filePath.toString().split("/");
+        String[] pathElements = filePath.toString().split("\\\\");
         for(String el: pathElements) {
             logger.warn(el);
         }

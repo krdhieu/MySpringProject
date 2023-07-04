@@ -30,10 +30,9 @@ public class StaticResourcesConfig implements WebMvcConfigurer {
             throw new RuntimeException(e);
         }
         registry.addResourceHandler("/static/uploads/avatar/**")
-                .addResourceLocations("classpath:/static/uploads/avatar/");
+                .addResourceLocations("classpath:static/uploads/avatar/");
         registry.addResourceHandler("/static/uploads/product/**")
-                .addResourceLocations("classpath:/static/uploads/product/");
-
+                .addResourceLocations("classpath:static/uploads/product/");
     }
 
     @Override
